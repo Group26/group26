@@ -38,17 +38,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final int CAMERA_REQUEST = 1888;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler mBackgroundHandler;
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
-        public void onOpened(CameraDevice camera) {
+        public void onOpened(CameraDevice camera) { //error to ask in lab
             //This is called when the camera is open
             Log.e(TAG, "onOpened");
             cameraDevice = camera;
