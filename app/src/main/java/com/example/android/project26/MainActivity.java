@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -20,10 +21,12 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -38,21 +41,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_CAMERA_PERMISSION = 200;
     public static final int CAMERA_REQUEST = 1888;
+    private static final int RESULT_LOAD_IMAGE = 1234;
     private static final String TAG = "AndroidCameraApi";
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private Button takePictureButton;
     private Button retryButton;
     private Button acceptButton;
+    private Button buttonLoadImage;
     private TextureView textureView;
     private String cameraId;
     private Size imageDimension;
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler mBackgroundHandler;
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
-        public void onOpened(CameraDevice camera) { //error to ask in lab
+        public void onOpened(CameraDevice camera) {
             //This is called when the camera is open
             Log.e(TAG, "onOpened");
             cameraDevice = camera;
@@ -171,7 +175,19 @@ public class MainActivity extends AppCompatActivity {
                 acceptButton.setVisibility(View.VISIBLE); //SHOW the button
             }
         });
+        buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View arg0) {
+
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
     }
 //
 //    public void removeLastImage(){
@@ -208,10 +224,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
+        }
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK ) {
+            Uri selectedImage = data.getData();
+            //String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            //Cursor cursor = getContentResolver().query(selectedImage,
+             //       filePathColumn, null, null, null);
+            //cursor.moveToFirst();
+
+            //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            //String picturePath = cursor.getString(columnIndex);
+            //cursor.close();
+
+            //ImageView imageView = (ImageView) findViewById(R.id.imgView);
+            imageView.setImageURI(selectedImage);
         }
     }
 
