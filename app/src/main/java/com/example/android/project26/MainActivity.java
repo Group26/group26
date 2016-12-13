@@ -175,19 +175,24 @@ public class MainActivity extends AppCompatActivity {
                 acceptButton.setVisibility(View.VISIBLE); //SHOW the button
             }
         });
-        buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
-        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
+        try{
+            buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+            buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View arg0) {
+                @Override
+                public void onClick(View arg0) {
+                    Intent i = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+                }
+            });
+        }
+        catch (Exception e){
 
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
-            }
-        });
+        }
+
     }
 //
 //    public void removeLastImage(){
@@ -230,20 +235,25 @@ public class MainActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
         }
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK ) {
-            Uri selectedImage = data.getData();
-            //String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK ) {
+            try{
+                Uri selectedImage = data.getData();
+                //String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-            //Cursor cursor = getContentResolver().query(selectedImage,
-             //       filePathColumn, null, null, null);
-            //cursor.moveToFirst();
+                //Cursor cursor = getContentResolver().query(selectedImage,
+                //       filePathColumn, null, null, null);
+                //cursor.moveToFirst();
 
-            //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            //String picturePath = cursor.getString(columnIndex);
-            //cursor.close();
+                //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                //String picturePath = cursor.getString(columnIndex);
+                //cursor.close();
 
-            //ImageView imageView = (ImageView) findViewById(R.id.imgView);
-            imageView.setImageURI(selectedImage);
+                //ImageView imageView = (ImageView) findViewById(R.id.imgView);
+                imageView.setImageURI(selectedImage);
+            }
+            catch (Exception e){
+
+            }
         }
     }
 
