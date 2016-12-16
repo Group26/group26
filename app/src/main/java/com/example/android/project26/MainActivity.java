@@ -35,6 +35,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
@@ -175,24 +178,62 @@ public class MainActivity extends AppCompatActivity {
                 acceptButton.setVisibility(View.VISIBLE); //SHOW the button
             }
         });
-        try{
-            buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
-            buttonLoadImage.setOnClickListener(new View.OnClickListener() {
+        buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View arg0) {
-                    Intent i = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            @Override
+            public void onClick(View arg0) {
 
-                    startActivityForResult(i, RESULT_LOAD_IMAGE);
-                }
-            });
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.contact_us_id:
+                contact();
+                return true;
+            case R.id.about_us_id:
+                about();
+                return true;
+            case R.id.settings_id:
+                setting();
+                return true;
+
+
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        catch (Exception e){
-
-        }
-
+    }
+    public void contact()
+    {
+        Intent intent = new Intent(MainActivity.this, contactus.class);
+        startActivity(intent);
+    }
+    public void about()
+    {
+        Intent intent = new Intent(MainActivity.this, about_us.class);
+        startActivity(intent);
+    }
+    public void setting()
+    {
+        Intent intent = new Intent(MainActivity.this, setting_us.class);
+        startActivity(intent);
     }
 //
 //    public void removeLastImage(){
@@ -235,25 +276,20 @@ public class MainActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
         }
-        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK ) {
-            try{
-                Uri selectedImage = data.getData();
-                //String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK ) {
+            Uri selectedImage = data.getData();
+            //String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-                //Cursor cursor = getContentResolver().query(selectedImage,
-                //       filePathColumn, null, null, null);
-                //cursor.moveToFirst();
+            //Cursor cursor = getContentResolver().query(selectedImage,
+             //       filePathColumn, null, null, null);
+            //cursor.moveToFirst();
 
-                //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                //String picturePath = cursor.getString(columnIndex);
-                //cursor.close();
+            //int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            //String picturePath = cursor.getString(columnIndex);
+            //cursor.close();
 
-                //ImageView imageView = (ImageView) findViewById(R.id.imgView);
-                imageView.setImageURI(selectedImage);
-            }
-            catch (Exception e){
-
-            }
+            //ImageView imageView = (ImageView) findViewById(R.id.imgView);
+            imageView.setImageURI(selectedImage);
         }
     }
 
