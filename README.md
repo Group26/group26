@@ -333,5 +333,20 @@ Added the flowchart diagram for our working model:
 
 
 
+
+
+
+RelationShip Diagram:
+
+
+
+<img width="657" alt="relationship diagram" src="https://cloud.githubusercontent.com/assets/19575389/22488261/e07ceba6-e808-11e6-9290-03e6b5f9d4ef.PNG">
+
+
+
+
+
+
+
 ..
 
