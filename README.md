@@ -279,7 +279,7 @@ public class Second extends AppCompatActivity {
 
 
 
-  Diagram for applications
+   ##  Diagram for applications
   
   
   
@@ -289,7 +289,7 @@ public class Second extends AppCompatActivity {
 
 
 
-Dataflow Diagram:
+## Dataflow Diagram:
 
 <img width="411" alt="dataflow part1" src="https://cloud.githubusercontent.com/assets/19575389/22185299/ef032198-e0da-11e6-8ebe-4aa3f58dcbac.PNG">
 
@@ -301,7 +301,7 @@ Dataflow Diagram:
 
 
 
-Sequence working Diagram:
+## Sequence working Diagram:
 
 [Image recognition  Sequence (UML) diagram.pdf](https://github.com/Chalikov/group26/files/722203/Image.recognition.Sequence.UML.diagram.pdf)
 
@@ -311,7 +311,7 @@ Sequence working Diagram:
 
 
 
-Class diagram:
+## Class diagram:
 
 This is the class diagram for the application
 <img width="361" alt="class diagram for app" src="https://cloud.githubusercontent.com/assets/19575389/22272082/0baec390-e290-11e6-9095-a406f59127fe.PNG">
@@ -323,7 +323,7 @@ This is the class diagram for the application
 
 
 
-Flowchart diagram:
+## Flowchart diagram:
 
 Added the flowchart diagram for our working model:
 
@@ -336,7 +336,7 @@ Added the flowchart diagram for our working model:
 
 
 
-RelationShip Diagram:
+## RelationShip Diagram:
 
 
 
@@ -345,7 +345,25 @@ RelationShip Diagram:
 
 
 
+## PseudoCode for Application:
 
+
+Start
+	Get the Application
+        Take the picture
+Else
+	Choose from Gallery
+
+		Send the picture for process
+		COMPUTE  the picture
+IF 
+	Picture Matches
+		Print the output in Percentages
+Else
+	DISPLAY the error
+ENDIF
+
+END
 
 
 ..
