@@ -345,26 +345,6 @@ Added the flowchart diagram for our working model:
 
 
 
-## PseudoCode for Application:
-
-
-Start
-	Get the Application
-        Take the picture
-Else
-	Choose from Gallery
-
-		Send the picture for process
-		COMPUTE  the picture
-IF 
-	Picture Matches
-		Print the output in Percentages
-Else
-	DISPLAY the error
-ENDIF
-
-END
-
 
 ..
 
