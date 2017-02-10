@@ -1,5 +1,7 @@
 # Group Poject 26
 
+OUR WEBSITE: 134.83.83.25:47126
+
 This is the application which is called a Image recognition Application . The main purpose of this application is that User take or choose the picture and then send to backend after it the system will tell accuracy of image.Basically This applcation will recognise he image on the Adroid Platform with closet to accuracy.
 
 
